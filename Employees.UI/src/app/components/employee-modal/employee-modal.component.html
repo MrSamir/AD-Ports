@@ -1,0 +1,73 @@
+<form [formGroup]="EmployeeForm" (ngSubmit)="save()">
+  <div class="card">
+    <div class="card-header">
+      <strong>Emmployee</strong>
+      <button type="button" class="close" aria-hidden="true" (click)="close()">
+        ×
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="row form-group">
+
+
+        <div class="col">
+          <label for="firstName">First Name</label>
+          <input type="text" class="form-control" formControlName="firstName" id="firstName"
+            [ngClass]="{ 'is-invalid': _submit && form['firstName'].errors }" />
+          <div *ngIf="_submit && form['firstName'].errors" class="invalid-feedback">
+            <span *ngIf="form['firstName'].errors['required']">Please Enter First Name
+            </span>
+          </div>
+        </div>
+
+      </div>
+      <div class="row form-group">
+
+        <div class="col">
+
+          <label for="lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="lastName" formControlName="lastName"
+            [ngClass]="{ 'is-invalid': _submit && form['lastName'].errors }">
+          <div *ngIf="_submit && form['lastName'].errors" class="invalid-feedback">
+            <span *ngIf="form['lastName'].errors['required']">Please Enter Last Name
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="row form-group">
+
+        <div class="col">
+
+          <label for="lastName">Age</label>
+          <input type="text" class="form-control" name="age" id="age" formControlName="age"
+            [ngClass]="{ 'is-invalid': _submit && form['age'].errors }">
+          <div *ngIf="_submit && form['age'].errors" class="invalid-feedback">
+            <span *ngIf="form['age'].errors['required']">Please Enter Age
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="col">
+          <button type="button" type="submit" class="btn btn-block btn-success">
+            Save
+          </button>
+        </div>
+
+        <div class="col">
+          <button type="button" (click)="close()" class="btn btn-block btn-secondary">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

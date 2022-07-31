@@ -27,7 +27,7 @@ import { HeaderComponent } from './layout/header/header.component';
 
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

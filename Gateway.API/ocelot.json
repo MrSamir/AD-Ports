@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7200
+          "Port": 4100
         }
       ],
       "UpstreamPathTemplate": "/gateway/employees",
@@ -22,7 +22,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7200
+          "Port": 4100
         }
       ],
       "UpstreamPathTemplate": "/gateway/employees/{id}",

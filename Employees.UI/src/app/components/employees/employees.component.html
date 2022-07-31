@@ -1,6 +1,6 @@
 <div class="card">
-  <p-table #dt [value]="items" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]"
-    [globalFilterFields]="['productName'] ">
+  <p-table #dt [value]="employees" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]"
+    [globalFilterFields]="['firstName','lastName'] ">
     <ng-template pTemplate="header">
       <tr>
 
@@ -29,8 +29,8 @@
     </ng-template>
     <ng-template pTemplate="body" let-item>
       <tr style="font-size: small">
-        <td hidden>{{item.firstname}}</td>
-        <td>{{item.lastname}}</td>
+        <td>{{item.firstName}}</td>
+        <td>{{item.lastName}}</td>
         <td>{{item.age}}</td>
 
         <td class="text-center">

@@ -44,6 +44,22 @@ builder.Services.AddAuthentication(options =>
 
 
 
+// Enable CORS
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var origins = builder.Configuration["AllowedOrigin"].Split(";");
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: myAllowSpecificOrigins,
+        options =>
+        {
+            options.WithOrigins(origins)
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
+});
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -53,9 +69,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
+
+
+
 //adding Ocelot Middleware
 //await app.UseOcelot();
 app.UseOcelot().Wait();
+
+
+app.UseCors(myAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
