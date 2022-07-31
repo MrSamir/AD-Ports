@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Employee } from 'src/app/models/employee.model';
+import { empService } from 'src/app/services/emp.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { EmployeeModalComponent } from '../employee-modal/employee-modal.component';
 import { ConfirmationComponent } from '../shared/confirmation/confirmation.component';

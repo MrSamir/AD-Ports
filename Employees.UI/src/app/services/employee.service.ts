@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Employee } from '../models/employee.model';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class EmployeeService {
 
-    private readonly Api_Url: string = environment.API_URL;
+    private readonly gateway_Url: string = environment.Gateway_URL;
     private readonly controllerName: string = 'Employees/';
     constructor(private _http: HttpClient) { }
 
@@ -29,24 +30,53 @@ export class EmployeeService {
 
     //#region  Employee
     getEmployees() {
-        return this._http.get<Employee[]>(this.Api_Url + this.controllerName + 'GetEmployees');
+        // return this._http.get<Employee[]>(this.Api_Url + this.controllerName + 'GetEmployees');
+        return this._http.get<Employee[]>(this.gateway_Url + 'GetEmployees');
     }
 
     getEmployee(id: number) {
-        return this._http.get<Employee>(this.Api_Url + this.controllerName + 'GetEmployee?id=' + id);
+        // return this._http.get<Employee>(this.Api_Url + this.controllerName + 'GetEmployee?id=' + id);
+        return this._http.get<Employee>(this.gateway_Url + 'GetEmployeeByID?id=' + id);
     }
 
-    deleteEmployee(id: number) {
-        return this._http.delete<number>(this.Api_Url + this.controllerName + 'DeleteEmployee?id=' + id);
-    }
+    deleteEmployee(id: number): Observable<number> {
 
+
+        return this._http.delete<number>(this.gateway_Url + 'DeleteEmployee/' + id);
+    }
 
     addEmployee(employee: Employee) {
-        return this._http.post(this.Api_Url + this.controllerName + 'AddEmployee', employee);
+        const httpHeaders = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+        return this._http.post(this.gateway_Url + 'AddEmployee', employee, httpHeaders);
+
     }
-    updateEmployee(employee: Employee) {
-        return this._http.put(this.Api_Url + this.controllerName + 'UpdatEmployee', employee);
+
+
+    // addEmployee(employee: Employee) {
+    //     const httpHeaders = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    //     return this.http.post(this.url + 'AddEmployee', employee, httpHeaders);
+    // }
+
+    updateEmployee(employee: Employee): Observable<Employee> {
+        const httpHeaders = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+        return this._http.put<Employee>(this.gateway_Url + 'UpdateEmployee', employee, httpHeaders);
     }
     //#endregion
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

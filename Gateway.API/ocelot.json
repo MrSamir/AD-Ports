@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/employees",
+      "DownstreamPathTemplate": "/api/employees/GetEmployees",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,15 +9,13 @@
           "Port": 4100
         }
       ],
-      "UpstreamPathTemplate": "/gateway/employees",
+      "UpstreamPathTemplate": "/gateway/GetEmployees",
       "UpstreamHttpMethod": [
-        "POST",
-        "PUT",
         "GET"
       ]
     },
     {
-      "DownstreamPathTemplate": "/api/employees/{id}",
+      "DownstreamPathTemplate": "/api/employees/GetEmployeeByID/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -25,10 +23,51 @@
           "Port": 4100
         }
       ],
-      "UpstreamPathTemplate": "/gateway/employees/{id}",
+      "UpstreamPathTemplate": "/gateway/GetEmployeeByID/{id}",
       "UpstreamHttpMethod": [
-        "Delete",
         "GET"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/employees/DeleteEmployee?id={id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 4100
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/DeleteEmployee/{id}",
+      "UpstreamHttpMethod": [
+        "DELETE"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Employees/AddEmployee",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 4100
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/AddEmployee",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Employees/UpdateEmployee",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 4100
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/UpdateEmployee",
+      "UpstreamHttpMethod": [
+        "PUT"
       ]
     }
   ]

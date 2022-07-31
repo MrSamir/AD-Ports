@@ -44,7 +44,7 @@ builder.Services.AddAuthentication(options =>
 
 
 
-// Enable CORS
+//Enable CORS
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var origins = builder.Configuration["AllowedOrigin"].Split(";");
 builder.Services.AddCors(options =>
@@ -54,11 +54,22 @@ builder.Services.AddCors(options =>
         {
             options.WithOrigins(origins)
             .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
             .AllowAnyHeader();
         });
 });
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CORSPolicy",
+        builder => builder
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
+        .SetIsOriginAllowed((hosts) => true));
+});
 
 var app = builder.Build();
 
@@ -69,8 +80,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
-
+// app.UseCors("CORSPolicy");
+app.UseCors(myAllowSpecificOrigins);
 
 
 
@@ -79,7 +90,7 @@ if (app.Environment.IsDevelopment())
 app.UseOcelot().Wait();
 
 
-app.UseCors(myAllowSpecificOrigins);
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

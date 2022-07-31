@@ -30,6 +30,9 @@ builder.Services.AddCors(options =>
         {
             options.WithOrigins(origins)
             .AllowAnyMethod()
+            .WithExposedHeaders("content-disposition")
+            .SetPreflightMaxAge(TimeSpan.FromSeconds(3600))
+            .AllowCredentials()
             .AllowAnyHeader();
         });
 });

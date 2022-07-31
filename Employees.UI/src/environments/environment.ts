@@ -7,7 +7,6 @@ export const environment = {
   Gateway_URL: 'https://localhost:7300/gateway/',
   API_URL: 'https://localhost:4100/api/',
 
-
 };
 
 /*

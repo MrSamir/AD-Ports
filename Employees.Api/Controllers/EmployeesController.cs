@@ -67,7 +67,7 @@ namespace EmployeeManagment.Api.Employees.Controllers
 
         [Route("[action]")]
         [HttpPut]
-        public async Task<IActionResult> UpdatEmployee([FromBody] Employee employee)
+        public async Task<IActionResult> UpdateEmployee([FromBody] Employee employee)
         {
 
             var result = await employeesProvider.UpdateEmployeeAsync(employee);

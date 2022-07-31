@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  employees.api:
+    image: ${DOCKER_REGISTRY-}employeesapi
+    build:
+      context: .
+      dockerfile: Employees.Api/Dockerfile
+
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: Gateway.API/Dockerfile
+
