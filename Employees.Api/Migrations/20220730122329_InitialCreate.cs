@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Employees.Api.Migrations
+namespace EmployeeManagment.Api.Migrations
 {
     public partial class InitialCreate : Migration
     {

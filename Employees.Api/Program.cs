@@ -1,7 +1,7 @@
 
-using ECommerce.Api.Employees.Db;
-using ECommerce.Api.Employees.Interfaces;
-using ECommerce.Api.Employees.Providers;
+using EmployeeManagment.Api.Employees.Db;
+using EmployeeManagment.Api.Employees.Interfaces;
+using EmployeeManagment.Api.Employees.Providers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

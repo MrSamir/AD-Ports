@@ -1,4 +1,4 @@
-﻿namespace ECommerce.Api.Employees.Models
+﻿namespace EmployeeManagment.Api.Employees.Models
 {
     public class Employee
     {

@@ -1,4 +1,4 @@
-﻿namespace ECommerce.Api.Employees.Profiles
+﻿namespace EmployeeManagment.Api.Employees.Profiles
 {
     public class EmployeeProfile :AutoMapper.Profile
     {

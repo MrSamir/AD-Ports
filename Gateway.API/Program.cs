@@ -24,13 +24,18 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options => {
+}).AddJwtBearer(options =>
+{
     options.RequireHttpsMetadata = false;
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
         IssuerSigningKey = new SymmetricSecurityKey(key),
+
+        //For this small system will be only validate key
         ValidateIssuerSigningKey = true,
+
+        //not validating server
         ValidateIssuer = false,
         ValidateAudience = false
     };
@@ -54,7 +59,7 @@ app.UseOcelot().Wait();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.UseAuthentication();
+// app.UseAuthentication();
 app.MapControllers();
 
 app.Run();

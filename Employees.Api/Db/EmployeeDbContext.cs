@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ECommerce.Api.Employees.Models;
+using EmployeeManagment.Api.Employees.Models;
 using System.Diagnostics;
 
-namespace ECommerce.Api.Employees.Db
+namespace EmployeeManagment.Api.Employees.Db
 {
     public class EmployeeDbContext : DbContext
     {

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using ECommerce.Api.Employees.Db;
-using ECommerce.Api.Employees.Interfaces;
-using ECommerce.Api.Employees.Models;
+using EmployeeManagment.Api.Employees.Db;
+using EmployeeManagment.Api.Employees.Interfaces;
+using EmployeeManagment.Api.Employees.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommerce.Api.Employees.Providers
+namespace EmployeeManagment.Api.Employees.Providers
 {
     public class EmployeesProvider : IEmployeesProvider
     {
@@ -55,11 +55,11 @@ namespace ECommerce.Api.Employees.Providers
         {
             try
             {
-                var product = await dbContext.Employees.FirstOrDefaultAsync(p => p.ID == id);
+                var employee = await dbContext.Employees.FirstOrDefaultAsync(p => p.ID == id);
 
-                if (product != null)
+                if (employee != null)
                 {
-                    var result = mapper.Map<Db.Employee, Models.Employee>(product);
+                    var result = mapper.Map<Db.Employee, Models.Employee>(employee);
                     return (true, result, null);
                 }
                 return (false, null, "Not found");
@@ -70,5 +70,95 @@ namespace ECommerce.Api.Employees.Providers
                 return (false, null, ex.Message);
             }
         }
+
+        public async Task<(bool IsSuccess,int EmployeeID, string ErrorMessage)> InsertEmployeeAsync(Models.Employee newEmployee)
+        {
+            try
+            {
+               
+             
+
+                //var result = mapper.Map<Db.Employee, Models.Employee>(newEmployee);
+                var emp = mapper.Map<Models.Employee,Db.Employee>(newEmployee);
+
+                await dbContext.Employees.AddAsync(emp);
+                await dbContext.SaveChangesAsync();
+                 
+                if (emp.ID != 0)
+                {
+                    //var result = mapper.Map<Db.Employee, Models.Employee>(newEmployee);
+                    return (true, emp.ID, null);
+                }
+                return (false,0, "Adding Failed");
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex.ToString());
+                return (false,0, ex.Message);
+            }
+        }
+
+        public async Task<(bool IsSuccess,int result, string ErrorMessage)> UpdateEmployeeAsync(Models.Employee oldEmployee)
+        {
+            try
+            {
+                var employee = await dbContext.Employees.FirstOrDefaultAsync(p => p.ID == oldEmployee.ID);
+
+                if (employee != null)
+                {
+                    var result = mapper.Map<Db.Employee, Models.Employee>(employee);
+
+                     dbContext.Employees.Update(employee);
+                    await dbContext.SaveChangesAsync();
+
+                    return (true, 1, null);
+                }
+                return (false, 0, "Not found");
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex.ToString());
+                return (false, 0, ex.Message);
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
+        public async Task<(bool IsSuccess,int result, string ErrorMessage)> DeleteEmployeeAsync(int id)
+        {
+           
+            try
+            {
+               
+                var employee = await dbContext.Employees.FirstOrDefaultAsync(p => p.ID == id);
+
+                if (employee != null)
+                {
+                    //Delete Employee
+                     dbContext.Employees.Remove(employee);
+
+                    //Commit the transaction
+                  var  result = await dbContext.SaveChangesAsync();
+
+                    return (true, result, null);
+                }
+                return (false, 0, "Delete Failed");
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex.ToString());
+                return (false, 0, ex.Message);
+            }
+        }
+
+       
     }
 }
