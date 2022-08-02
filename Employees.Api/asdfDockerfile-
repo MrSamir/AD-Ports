@@ -1,0 +1,36 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+
+#Build Image (To build and publish files)
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS mybuild
+
+#directory 
+WORKDIR /src
+# COPY ["Employees\Employees.Api/Employees.Api.csproj", "Employees.Api/"]
+COPY *.csproj .
+#restore any dependencies and tools
+# RUN dotnet restore "Employees\Employees.Api/Employees.Api.csproj"
+RUN dotnet restore 
+
+#copy and build (configuratio set to release) then publish
+COPY . .
+# WORKDIR "/src/Employees.Api"
+# RUN dotnet build "Employees.Api.csproj" -c Release -o /app/build
+RUN dotnet build -c Release -o /app/build
+
+FROM mybuild AS mypublish
+RUN dotnet publish -c Release -o /app/publish
+
+##################################################################################
+
+
+
+#Build runtime image (Final Stage Image)
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+WORKDIR /app
+
+
+FROM base AS final
+WORKDIR /app
+COPY --from=mypublish /app/publish .
+ENTRYPOINT ["dotnet", "Employees.Api.dll"]

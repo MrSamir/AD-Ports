@@ -15,9 +15,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IEmployeesProvider, EmployeesProvider>();
 builder.Services.AddAutoMapper(typeof(Program));
 
+//Setting Up connection string
+var server = builder.Configuration["DBServer"] ?? "ms-sql-server";
+var port = builder.Configuration["DBPort"] ?? "1433";
+var user = builder.Configuration["DBUser"] ?? "SA";
+var password = builder.Configuration["DBPassword"] ?? "Pass@word1";
+var database = builder.Configuration["DBName"] ?? "EmployeeManagment";
+
 builder.Services.AddDbContext<EmployeeDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeConnection"));
+    // options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeConnection"));
+    var connection = $"Server={server},{port};Database={database};Trusted_Connection=True;User Id={user};Password={password}";
+    options.UseSqlServer(connection);
 });
 
 
